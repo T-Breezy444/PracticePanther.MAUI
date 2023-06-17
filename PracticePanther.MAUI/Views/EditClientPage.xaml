@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PracticePanther.MAUI.Views.EditClientPage"
+             Title="EditClientPage"
+             NavigatedTo="ContentPage_NavigatedTo">
+    <!-- a grid where the left 1/4 of the screen is a stack view and the main section is another grid-->
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" BackgroundColor="Bisque">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="0" BackgroundColor="Black" TextColor="Bisque" Text="Add" Clicked="Add_Clicked"/>
+            <Button Grid.Row="1" BackgroundColor="Black" TextColor="Bisque" Text="Edit" Clicked="Edit_Clicked"/>
+            <Button Grid.Row="2" BackgroundColor="Black" TextColor="Bisque" Text="Delete" Clicked="Delete_Clicked"/>
+            <Button Grid.Row="3" BackgroundColor="Black" TextColor="Bisque" Text="Back" Clicked="Back_Clicked"/>
+        </Grid>
+        <Grid Grid.Column="1" BackgroundColor ="Bisque">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="10*"/>
+            </Grid.RowDefinitions>
+            <Grid  Grid.Row="0" BackgroundColor="Black">
+                <Entry Text="Your Clients"  TextColor="Bisque" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="1" Background="Black">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Entry Grid.Column="0" Text="{Binding Path=Query}" BackgroundColor="Bisque" TextColor="Black"/>
+                <Button Grid.Column="1" Text="Search" Clicked="Search_Clicked" BackgroundColor="Bisque" TextColor="Black"/>
+            </Grid>
+            <Grid Grid.Row="2" BackgroundColor="Black">
+                <ListView
+                ItemsSource="{Binding Path=Clients, Mode=TwoWay}"
+                SelectedItem="{Binding Path= SelectedClient, Mode=TwoWay}"
+                >
+                </ListView>
+            </Grid>
+            
+        </Grid>
+    </Grid>
+    
+</ContentPage>

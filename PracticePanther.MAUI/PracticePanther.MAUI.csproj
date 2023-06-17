@@ -52,4 +52,28 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Compile Update="Views\EditClientPage.xaml.cs">
+	    <DependentUpon>EditClientPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\ClientDetailPage.xaml.cs">
+	    <DependentUpon>ClientDetailPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\ProjectPage.xaml.cs">
+	    <DependentUpon>ProjectPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\EditClientPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ClientDetailPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ProjectPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>
