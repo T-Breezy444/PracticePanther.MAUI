@@ -48,6 +48,19 @@ namespace PracticePanther.MAUI.ViewModels
             NotifyPropertyChanged("Clients");
         }
 
+        public void expand()
+        {
+            //changes selected clint to display its Id, OpenDate, IsActive, and Notes
+            if (SelectedClient == null)
+            {
+                return;
+            }
+            ClientService.Current.expand(SelectedClient);
+            NotifyPropertyChanged("Clients");
+
+
+        }
+
 
         
        

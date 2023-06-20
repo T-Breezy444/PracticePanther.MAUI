@@ -17,14 +17,14 @@ public partial class MainPage : ContentPage
 		(BindingContext as MainViewModel).Delete();
     }
 
-	private void Edit_Clicked(object sender, EventArgs e)
+	private void Client_Clicked(object sender, EventArgs e)
 	{
 		Shell.Current.GoToAsync("//EditClientPage");
     }
 
-	private void Add_Clicked(object sender, EventArgs e)
+	private void Selected(object sender, EventArgs e)
 	{
-
+		(BindingContext as MainViewModel).expand();
     }
 
 	private void Search_Clicked(object sender, EventArgs e)

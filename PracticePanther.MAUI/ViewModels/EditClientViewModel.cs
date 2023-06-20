@@ -46,8 +46,16 @@ namespace PracticePanther.MAUI.ViewModels
 
         public void Edit_Click(Shell s)
         {
-            var idParam = SelectedClient?.Id ?? 0;
+            //var idParam = SelectedClient.Id;
+           // s.GoToAsync($"//ClientDetailPage?personId={idParam}");
+           //copies the id then calls the client detail page construcotr that takes in a parameter
+           if (SelectedClient == null)
+            {
+                 return;
+            }
+           var idParam = SelectedClient.Id;
             s.GoToAsync($"//ClientDetailPage?personId={idParam}");
+
         }
 
         public void RefreshView()

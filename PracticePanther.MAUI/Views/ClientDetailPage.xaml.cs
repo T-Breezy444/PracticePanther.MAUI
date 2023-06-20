@@ -2,9 +2,9 @@ using PracticePanther.MAUI.ViewModels;
 
 namespace PracticePanther.MAUI.Views;
 
+[QueryProperty(nameof(ClientId), "ClientId")]
 public partial class ClientDetailPage : ContentPage
-{
-    //[QueryProperty(nameof(ClientId), "ClientId")]
+{  
     public ClientDetailPage()
 	{
 		InitializeComponent();

@@ -14,6 +14,7 @@ namespace PracticePanther.MAUI
         public bool IsActive { get; set; }
         public string Name { get; set; }
         public string Notes { get; set; }
+        public List<Project> Projects { get; set; }
         
         public Client(int id = 0, DateTime openDate = new DateTime(), DateTime closeDate = new DateTime(), bool isActive = false, string name = "", string notes = "")
         {
@@ -23,6 +24,7 @@ namespace PracticePanther.MAUI
             IsActive = isActive;
             Name = name;
             Notes = notes;
+            Projects = new List<Project>();
         }
 
         public override string ToString()
@@ -60,7 +62,7 @@ namespace PracticePanther.MAUI
         public override string ToString()
         {
             //returns a string representation of the object
-            return $"[{Id}] /n{ShortName},{LongName} /n{OpenDate} {IsActive} /nClient ID: {ClientId}";
+            return $"[{Id}] \r\n{ShortName},{LongName} \r\n{OpenDate} {IsActive} \r\nClient ID: {ClientId}";
         }
 
 
@@ -147,6 +149,12 @@ namespace PracticePanther.MAUI
             return patrons.FirstOrDefault(p => p.Id == id);
         }
 
+        public void expand(Client temp)
+        {
+            //returns an expanded string reprisentation of the Client object
+            Console.WriteLine($"[{temp.Id}] {temp.Name} \r\n{temp.OpenDate} {temp.IsActive} \r\n{temp.Notes}");
+            
+        }
 
 
     }

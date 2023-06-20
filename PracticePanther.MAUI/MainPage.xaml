@@ -3,43 +3,35 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PracticePanther.MAUI.MainPage">
 
-    <Grid>
+    <Grid BackgroundColor="Black">
         <Grid.RowDefinitions>
-            <RowDefinition Height ="1*"/>
-            <RowDefinition Height ="12*"/>
-            <RowDefinition Height ="1*"/>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="9*" />
         </Grid.RowDefinitions>
-        <Grid Grid.Row= "0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Label Text="Welcome to PracticePanther" TextColor="Bisque" FontSize="Medium" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center"  />
+        <!-- Grid that Displays List of Clients and list or projects -->
+        <Grid Grid.Row="1" Grid.Column="0" BackgroundColor="Black">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="4*"/>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="8*"/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Entry Grid.Column="0" Text="{Binding Path=Query}" BackgroundColor="Bisque" TextColor="Black"/>
-            <Button Grid.Column="1" Text="Search" Clicked="Search_Clicked" BackgroundColor="Bisque" TextColor="Black"/>
-        </Grid>
-
-        <Grid Grid.Row="1" BackgroundColor="Black" >
-            <ListView
-                ItemsSource="{Binding Path=Clients, Mode=TwoWay}"
-                SelectedItem="{Binding Path= SelectedClient, Mode=TwoWay}"
-                >
-
-            </ListView>
-        </Grid>
-
-        <Grid Grid.Row="2">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Text="Add" Clicked="Project_Clicked" BackgroundColor="Bisque" TextColor="Black" />
-                <Button Grid.Column="1" Text="Edit" Clicked ="Edit_Clicked" BackgroundColor="Bisque" TextColor="Black"/>
-                <Button Grid.Column="2" Text="Delete" Clicked="Delete_Clicked" BackgroundColor="Bisque" TextColor="Black"/>
-            </Grid>
+            <Button Text="Clients" TextColor="Bisque" Clicked ="Client_Clicked" FontSize="Medium" Grid.Row="0" Grid.Column="0" BackgroundColor="Black"  />
+            <ListView Grid.Row="1" ItemsSource="{Binding Path=Clients, Mode=TwoWay}" 
+                      SelectedItem="{Binding Path= SelectedClient, Mode=TwoWay}"
+                      />
+            <Button Text="Projects" TextColor="Bisque" Clicked="Project_Clicked"  FontSize="Medium" Grid.Row="2" Grid.Column="0" BackgroundColor="Black" />
+            <ListView Grid.Row="3" ItemsSource="{Binding Path=Projects, Mode=TwoWay}"/> 
         </Grid>
     </Grid>
+
 </ContentPage>
    
     
