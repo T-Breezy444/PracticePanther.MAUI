@@ -2,27 +2,24 @@ using PracticePanther.MAUI.ViewModels;
 
 namespace PracticePanther.MAUI.Views;
 
-[QueryProperty(nameof(ClientId), "ClientId")]
+[QueryProperty(nameof(ClientId), "clientId")]
 public partial class ClientDetailPage : ContentPage
 {  
+    public int ClientId { set; get; }
     public ClientDetailPage()
 	{
 		InitializeComponent();
-        BindingContext = new ClientDetailViewModel();
 	}
 
-    public ClientDetailPage(int id)
+  /*  public ClientDetailPage(int id)
     {
         InitializeComponent();
         BindingContext = new ClientDetailViewModel(id);
-    }
-    
+        Name = (BindingContext as ClientDetailViewModel).Name;
+        Notes = (BindingContext as ClientDetailViewModel).Notes;
 
-    public int ClientId
-    {
-        set; get;
     }
-
+    */
     private void OnLeaving(object sender, NavigatedFromEventArgs e)
     {
         BindingContext = null;

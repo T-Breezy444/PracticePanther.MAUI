@@ -30,7 +30,19 @@ namespace PracticePanther.MAUI.ViewModels
             }
 
         }
-        
+
+        public ObservableCollection<Project> Projects
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(Query))
+                    return new ObservableCollection<Project>(ProjectService.Current.GetAll);
+                else
+                    return new ObservableCollection<Project>(ProjectService.Current.Search(Query));
+            }
+
+        }
+
         public Client SelectedClient { get; set; }
 
         public void Search()
@@ -57,7 +69,6 @@ namespace PracticePanther.MAUI.ViewModels
             }
             ClientService.Current.expand(SelectedClient);
             NotifyPropertyChanged("Clients");
-
 
         }
 

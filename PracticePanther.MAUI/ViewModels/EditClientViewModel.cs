@@ -40,21 +40,27 @@ namespace PracticePanther.MAUI.ViewModels
             {
                 return;
             }
+            if (SelectedClient.Projects.Count > 0)
+            {
+                Console.WriteLine("Cannot delete client with projects");
+                NotifyPropertyChanged("Clients");
+                return;
+            }
             ClientService.Current.Delete(SelectedClient);
             NotifyPropertyChanged("Clients");
         }
 
         public void Edit_Click(Shell s)
         {
-            //var idParam = SelectedClient.Id;
-           // s.GoToAsync($"//ClientDetailPage?personId={idParam}");
-           //copies the id then calls the client detail page construcotr that takes in a parameter
            if (SelectedClient == null)
             {
                  return;
             }
-           var idParam = SelectedClient.Id;
-            s.GoToAsync($"//ClientDetailPage?personId={idParam}");
+          
+
+           //creates var idParam and sets it to the id of the selected client
+           var idParam = SelectedClient.Id;          
+           s.GoToAsync($"//ClientDetailPage?clientId={SelectedClient.Id}");
 
         }
 

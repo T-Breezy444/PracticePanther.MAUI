@@ -34,6 +34,7 @@ namespace PracticePanther.MAUI
         }
 
 
+
     }
 
     public class Project
@@ -95,12 +96,14 @@ namespace PracticePanther.MAUI
             patrons = new List<Client>
             { 
                 new Client(1, new DateTime(2021, 1, 1), new DateTime(2021, 1, 1), true, "John Doe", "This is a test client"),
-                new Client(2),
+                new Client(2, new DateTime(2022,1,2), new DateTime(2023,4,4), true, "Tyler with projects", "This is a test client with projects"),
                 new Client(3),
                 new Client(4),
                 new Client(5),
                 new Client(6)
             };
+
+            patrons[1].Projects.Add(new Project(1, new DateTime(2021, 1, 1), new DateTime(2021, 1, 1), true, "Project 1", "This is a test project", 1));
 
 
         }
@@ -114,6 +117,8 @@ namespace PracticePanther.MAUI
         {
             return patrons.FirstOrDefault(p => p.Id == id);
         }
+
+        
         public void Add(Client? patronToAdd)
         {
              if(patronToAdd != null)
@@ -231,7 +236,11 @@ namespace PracticePanther.MAUI
         {
             return projects.Where(p => p.ShortName.ToUpper().Contains(Query.ToUpper())).ToList();
         }
-       
+        
+        public Project GetById(int id)
+        {
+            return projects.FirstOrDefault(p => p.Id == id);
+        }
 
 
 

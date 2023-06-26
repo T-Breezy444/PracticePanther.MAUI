@@ -20,9 +20,10 @@ namespace PracticePanther.MAUI.ViewModels
         public string? Name { get; set; }
 
         public string? Notes { get; set; }
-        public int personId { get; set; }
+        public int ClientId { get; set; }
 
-        public ClientDetailViewModel(int id = 0)
+
+        public ClientDetailViewModel(int id=0)
         {
             if (id > 0)
             {
@@ -38,7 +39,7 @@ namespace PracticePanther.MAUI.ViewModels
             {
                 Name = person.Name;
                 Notes = person.Notes;
-                personId = person.Id;
+                ClientId = person.Id;
             }
 
             NotifyPropertyChanged(nameof(Name));
@@ -49,17 +50,15 @@ namespace PracticePanther.MAUI.ViewModels
         public void AddClient(int id = 0)
         {
 
-            if (personId <= 0)
+            if (ClientId <= 0)
             {
                ClientService.Current.Add(new Client { Name = Name, OpenDate = DateTime.Today, IsActive = true ,Id = ClientService.Current.GetAll.Count + 1 });
             }
             else
             {
-                var refToUpdate = ClientService.Current.GetById(personId);
+                var refToUpdate = ClientService.Current.GetById(ClientId);
                 refToUpdate.Name = Name;
-                refToUpdate.Id = id;
                 refToUpdate.Notes = Notes;
-  
             }
             RefreshView();
             Shell.Current.GoToAsync("//EditClientPage");
@@ -68,7 +67,7 @@ namespace PracticePanther.MAUI.ViewModels
         public void RefreshView()
         {
             NotifyPropertyChanged(nameof(Name));
-            NotifyPropertyChanged(nameof(personId));
+            NotifyPropertyChanged(nameof(ClientId));
             NotifyPropertyChanged("Clients");
         }
     }

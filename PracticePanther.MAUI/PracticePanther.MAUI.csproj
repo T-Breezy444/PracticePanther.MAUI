@@ -59,6 +59,9 @@
 	  <Compile Update="Views\ClientDetailPage.xaml.cs">
 	    <DependentUpon>ClientDetailPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\ProjectDetailPage.xaml.cs">
+	    <DependentUpon>ProjectDetailPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\ProjectPage.xaml.cs">
 	    <DependentUpon>ProjectPage.xaml</DependentUpon>
 	  </Compile>
@@ -69,6 +72,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\ClientDetailPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ProjectDetailPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\ProjectPage.xaml">

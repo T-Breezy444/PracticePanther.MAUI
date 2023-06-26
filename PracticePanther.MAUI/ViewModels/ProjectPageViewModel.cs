@@ -19,7 +19,7 @@ namespace PracticePanther.MAUI.ViewModels
 
         public void Search()
         {
-            NotifyPropertyChanged("Clients");
+            NotifyPropertyChanged("Projects");
         }
         public string Query { get; set; }
         public ObservableCollection<Project> Projects
