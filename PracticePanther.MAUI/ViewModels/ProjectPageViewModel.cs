@@ -16,7 +16,6 @@ namespace PracticePanther.MAUI.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
         public void Search()
         {
             NotifyPropertyChanged("Projects");
@@ -33,29 +32,29 @@ namespace PracticePanther.MAUI.ViewModels
             }
 
         }
-
-        public Client SelectedProject { get; set; }
+        public Project SelectedProject { get; set; }
         public void Delete()
         {
             if (SelectedProject == null)
             {
                 return;
             }
-            ClientService.Current.Delete(SelectedProject);
-            NotifyPropertyChanged("Clients");
+            ProjectService.Current.Delete(SelectedProject.Id);
+            NotifyPropertyChanged("Projects");
         }
-
         public void Edit_Click(Shell s)
         {
-            var idParam = SelectedProject?.Id ?? 0;
-            s.GoToAsync($"//ClientDetailPage?personId={idParam}");
+            if (SelectedProject == null)
+            {
+                return;
+            }
+            s.GoToAsync($"//ProjectDetailPage?projectId={SelectedProject.Id}");
         }
-
         public void RefreshView()
         {
             NotifyPropertyChanged($"{nameof(SelectedProject)}");
             NotifyPropertyChanged($"{nameof(Client)}");
-            NotifyPropertyChanged("Clients");
+            NotifyPropertyChanged("Projects");
         }
 
 

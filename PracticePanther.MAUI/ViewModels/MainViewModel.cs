@@ -18,7 +18,6 @@ namespace PracticePanther.MAUI.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
         public ObservableCollection<Client> Clients 
         {
             get
@@ -28,9 +27,7 @@ namespace PracticePanther.MAUI.ViewModels
                 else
                     return new ObservableCollection<Client>(ClientService.Current.Search(Query));   
             }
-
         }
-
         public ObservableCollection<Project> Projects
         {
             get
@@ -40,36 +37,11 @@ namespace PracticePanther.MAUI.ViewModels
                 else
                     return new ObservableCollection<Project>(ProjectService.Current.Search(Query));
             }
-
         }
-
-        public Client SelectedClient { get; set; }
-
-        public void Search()
+        public void RefreshView()
         {
-            NotifyPropertyChanged("Clients");
-        }
-
-        public void Delete()
-        {
-            if (SelectedClient == null)
-            {
-                return;
-            }
-            ClientService.Current.Delete(SelectedClient);
-            NotifyPropertyChanged("Clients");
-        }
-
-        public void expand()
-        {
-            //changes selected clint to display its Id, OpenDate, IsActive, and Notes
-            if (SelectedClient == null)
-            {
-                return;
-            }
-            ClientService.Current.expand(SelectedClient);
-            NotifyPropertyChanged("Clients");
-
+            NotifyPropertyChanged($"{nameof(Clients)}");
+            NotifyPropertyChanged($"{nameof(Projects)}");
         }
 
 

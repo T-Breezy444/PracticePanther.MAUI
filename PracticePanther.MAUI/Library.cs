@@ -26,7 +26,6 @@ namespace PracticePanther.MAUI
             Notes = notes;
             Projects = new List<Project>();
         }
-
         public override string ToString()
         {
             //returns a string representation of the object
@@ -46,7 +45,8 @@ namespace PracticePanther.MAUI
         public bool IsActive { get; set; }
         public string ShortName { get; set; }
         public string LongName { get; set; }
-        public int ClientId { get; set; }
+        public List<int> ClientId { get; set; }
+
 
         
         
@@ -58,12 +58,14 @@ namespace PracticePanther.MAUI
             IsActive = isActive;
             ShortName = shortName;
             LongName = longName;
-            ClientId = clientId;
+            ClientId = new List<int>();
+            ClientId.Add(clientId);
         }
         public override string ToString()
         {
-            //returns a string representation of the object
-            return $"[{Id}] \r\n{ShortName},{LongName} \r\n{OpenDate} {IsActive} \r\nClient ID: {ClientId}";
+            
+
+            return $"Id:[{Id}]   {ShortName},   {LongName} \r\n{OpenDate} {IsActive} \r\n";
         }
 
 
@@ -213,7 +215,8 @@ namespace PracticePanther.MAUI
         {
             if (projectToAdd != null)
             {
-                if (ClientService.Current.Get(projectToAdd.ClientId) != null)
+               
+                if (projectToAdd.ClientId.Count != 0)
                 {
                     projects.Add(projectToAdd);
                 }
@@ -240,12 +243,7 @@ namespace PracticePanther.MAUI
         public Project GetById(int id)
         {
             return projects.FirstOrDefault(p => p.Id == id);
-        }
-
-
-
-        
-
+        }   
     }
     public class Employee
     {

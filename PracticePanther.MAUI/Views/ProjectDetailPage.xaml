@@ -1,12 +1,45 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="PracticePanther.MAUI.Views.NewPage1"
-             Title="Project Detail Page">
+             x:Class="PracticePanther.MAUI.Views.ProjectDetailPage"
+             Title="Project Detail Page"
+             NavigatedTo="OnArriving">
     <VerticalStackLayout>
         <Label 
-            Text="Welcome to .NET MAUI!"
+            Text="Name"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        <Entry Text="{Binding Path=Name}"></Entry>
+        <Label
+            Text="Open Date"
+            VerticalOptions="Center"
+            HorizontalOptions="Center" />
+        <DatePicker Date="{Binding Path=OpenDate}"></DatePicker>
+        <Label
+            Text="Active Status"
+            VerticalOptions="Center"
+            HorizontalOptions="Center" />
+        <Switch IsToggled="{Binding Path=IsActive}"></Switch>
+
+        <Label
+            Text="Clients with this Project"
+            VerticalOptions="Center"
+            HorizontalOptions="Center" />
+        <ListView ItemsSource="{Binding Path=Clients}"/>
+        <Label
+            Text="Add clients from list"
+            VerticalOptions="Center"
+            HorizontalOptions="Center" />
+        <ListView ItemsSource="{Binding Path=AllClients}"
+                  SelectedItem="{Binding Path=SelectedClient}"/>
+        <Button Text="Add selected client to project" Clicked="AddClientClicked"/>
+        <Button
+            Text="Finish"
+            Clicked="Ok_Clicked"
+            />
+        <Button
+            Text="Cancel"
+            Clicked="Cancel_Clicked"
+            />
     </VerticalStackLayout>
 </ContentPage>

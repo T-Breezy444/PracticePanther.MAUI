@@ -16,6 +16,22 @@
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
         <Entry Text="{Binding Path=Notes}"></Entry>
+        <Label
+            Text="Open Date"
+            VerticalOptions="Center"
+            HorizontalOptions="Center" />
+        <DatePicker Date="{Binding Path=OpenDate}"></DatePicker>
+        <Label
+            Text="Active Status"
+            VerticalOptions="Center"
+            HorizontalOptions="Center" />
+        <Switch IsToggled="{Binding Path=IsActive}"></Switch>
+        <Label
+            Text="Projects with this Client"
+            VerticalOptions="Center"
+            HorizontalOptions="Center" />
+        <ListView ItemsSource="{Binding Path=Projects}"/>
+
         <Button
             Text="Ok"
             Clicked="Ok_Clicked"

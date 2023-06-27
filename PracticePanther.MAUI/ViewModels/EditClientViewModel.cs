@@ -15,7 +15,6 @@ namespace PracticePanther.MAUI.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
         public void Search()
         {
             NotifyPropertyChanged("Clients");
@@ -32,7 +31,6 @@ namespace PracticePanther.MAUI.ViewModels
             }
 
         }
-
         public Client SelectedClient { get; set; }
         public void Delete()
         {
@@ -40,30 +38,22 @@ namespace PracticePanther.MAUI.ViewModels
             {
                 return;
             }
-            if (SelectedClient.Projects.Count > 0)
+            //checks if the client is in the project list and if it is it will not delete the client
+            if (ProjectService.Current.GetAll.Any(p => p.ClientId.Contains(SelectedClient.Id)))
             {
-                Console.WriteLine("Cannot delete client with projects");
-                NotifyPropertyChanged("Clients");
                 return;
             }
             ClientService.Current.Delete(SelectedClient);
             NotifyPropertyChanged("Clients");
         }
-
         public void Edit_Click(Shell s)
         {
            if (SelectedClient == null)
             {
                  return;
-            }
-          
-
-           //creates var idParam and sets it to the id of the selected client
-           var idParam = SelectedClient.Id;          
+            }      
            s.GoToAsync($"//ClientDetailPage?clientId={SelectedClient.Id}");
-
         }
-
         public void RefreshView()
         {
             NotifyPropertyChanged($"{nameof(SelectedClient)}");

@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="PracticePanther.MAUI.MainPage">
+             x:Class="PracticePanther.MAUI.MainPage"
+             NavigatedTo="OnArriving">
 
     <Grid BackgroundColor="Black">
         <Grid.RowDefinitions>
@@ -24,9 +25,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Button Text="Clients" TextColor="Bisque" Clicked ="Client_Clicked" FontSize="Medium" Grid.Row="0" Grid.Column="0" BackgroundColor="Black"  />
-            <ListView Grid.Row="1" ItemsSource="{Binding Path=Clients, Mode=TwoWay}" 
-                      SelectedItem="{Binding Path= SelectedClient, Mode=TwoWay}"
-                      />
+            <ListView Grid.Row="1" ItemsSource="{Binding Path=Clients, Mode=TwoWay}" />
             <Button Text="Projects" TextColor="Bisque" Clicked="Project_Clicked"  FontSize="Medium" Grid.Row="2" Grid.Column="0" BackgroundColor="Black" />
             <ListView Grid.Row="3" ItemsSource="{Binding Path=Projects, Mode=TwoWay}"/> 
         </Grid>

@@ -23,6 +23,10 @@
         Title="Client Detail"
         ContentTemplate="{DataTemplate views:ClientDetailPage}"
         Route="ClientDetailPage" />
-    
+    <ShellContent
+        Title="Project Detail"
+        ContentTemplate="{DataTemplate views:ProjectDetailPage}"
+        Route="ProjectDetailPage" />
+
 
 </Shell>

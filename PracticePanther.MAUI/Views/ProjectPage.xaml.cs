@@ -9,27 +9,22 @@ public partial class ProjectPage : ContentPage
 		InitializeComponent();
 		BindingContext = new ProjectPageViewModel();
 	}
-
     private void Add_Clicked(object sender, EventArgs e)
     {
-
+        Shell.Current.GoToAsync("//ProjectDetailPage");
     }
-
     private void Edit_Clicked(object sender, EventArgs e)
     {
-
+        (BindingContext as ProjectPageViewModel).Edit_Click(Shell.Current);
     }
-
     private void Delete_Clicked(object sender, EventArgs e)
     {
         (BindingContext as ProjectPageViewModel).Delete();
     }
-
     private void Back_Clicked(object sender, EventArgs e)
     {
         Shell.Current.GoToAsync("//MainPage");
     }
-
     private void Search_Clicked(object sender, EventArgs e)
     {
         (BindingContext as ProjectPageViewModel).Search();
