@@ -17,6 +17,41 @@ namespace PracticePanther.MAUI.ViewModels
         }
         public string? Name { get; set; }
         public int ProjectId { get; set; }
+
+        public DateTime DueDate { get; set; }
+        public List<Employee> Employees
+        {
+            get
+            {
+                if (ProjectId <= 0)
+                {
+                    return new List<Employee>();
+                }
+                else
+                {
+                    //returns all employees that have a project with the same id as the employee id
+                    return EmployeeService.Current.GetAll.Where(p => p.Id == ProjectId).ToList();
+                }   
+            }
+        }
+
+        public List<Employee> AllEmpoyees
+        {
+            get
+            {
+                return EmployeeService.Current.GetAll.ToList();
+            }
+        }
+
+        public void AddEmployee()
+        {
+            if (SelectedEmployee != null)
+            {
+               var project = ProjectService.Current.GetById(ProjectId) as Project;
+               project.Employee = SelectedEmployee;
+               RefreshView();
+            }
+        }
         public List<Client> Clients
         {
             get
@@ -42,7 +77,7 @@ namespace PracticePanther.MAUI.ViewModels
                 return ClientService.Current.GetAll.ToList();
             }
         }
-
+        public Employee SelectedEmployee { get; set; }
         public Client SelectedClient { get; set; }
         public void AddClient()
         {
@@ -84,16 +119,19 @@ namespace PracticePanther.MAUI.ViewModels
                     ShortName = Name,
                     OpenDate = OpenDate,
                     IsActive = IsActive,
-                    
-                    Id = ProjectService.Current.GetAll.Count() + 1
-
+                    Id = ProjectService.Current.GetAll.Count() + 1,
+                    bill = new Bill(SelectedEmployee.Id = 0, ProjectId, Hours = 0, SelectedEmployee.Rate = 0, DueDate)
                 }) ;
+               // ProjectService.Current.GetById(ProjectId).newBill(SelectedEmployee.Id = 0, ProjectId, Hours = 0, SelectedEmployee.Rate = 0);
             }         
             else
             {
                 var refToUpdate = ProjectService.Current.GetById(ProjectId);
                 refToUpdate.ShortName = Name;
                 refToUpdate.OpenDate = OpenDate;
+
+                refToUpdate.bill = new Bill(SelectedEmployee.Id, ProjectId, Hours, SelectedEmployee.Rate, DueDate);
+               // refToUpdate.newBill(SelectedEmployee.Id = 0, ProjectId, Hours = 0, SelectedEmployee.Rate = 0);
                 if (refToUpdate.ClientId.Count() == 0)
                 {
                     refToUpdate.IsActive = true;
@@ -106,11 +144,33 @@ namespace PracticePanther.MAUI.ViewModels
             RefreshView();
             Shell.Current.GoToAsync("//ProjectPage");
         }
+        
+        public void Total()
+        {
+           //calculates total bill for the project AND UPDATES  
+          // ProjectService.Current.GetById(ProjectId).bill.total();
+
+        }
+
+        public decimal Hours { 
+            get
+            {
+                return ProjectService.Current.GetById(ProjectId).bill.hours;
+            } 
+            set
+            {
+                ProjectService.Current.GetById(ProjectId).bill.hours = value;
+            }
+        }
         public void RefreshView()
         {
             NotifyPropertyChanged(nameof(Name));
             NotifyPropertyChanged(nameof(ProjectId));
             NotifyPropertyChanged("Projects");
+            NotifyPropertyChanged(nameof(Hours));
         }
+        
+        //need to have a bill associated with the product 
+
     }
 }

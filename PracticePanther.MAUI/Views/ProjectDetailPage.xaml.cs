@@ -32,4 +32,9 @@ public partial class ProjectDetailPage : ContentPage
     {
         (BindingContext as ProjectDetailViewModel).AddClient();
     }
+    private void AddEmployeeClicked(object sender, EventArgs e)
+    {
+        (BindingContext as ProjectDetailViewModel).AddEmployee();
+    }
+
 }

@@ -46,10 +46,14 @@ namespace PracticePanther.MAUI
         public string ShortName { get; set; }
         public string LongName { get; set; }
         public List<int> ClientId { get; set; }
+        public Time TimeEntry { get; set; }
+        public Employee Employee { get; set; }
+        public Bill bill { get; set; }
 
-
-        
-        
+        public void total()
+        {
+            bill.total = bill.rate * bill.hours;
+        }
         public Project(int id = 0, DateTime openDate = new DateTime(), DateTime closeDate = new DateTime(), bool isActive = false, string shortName = "", string longName = "", int clientId = 0)
         {
             Id = id;
@@ -60,12 +64,19 @@ namespace PracticePanther.MAUI
             LongName = longName;
             ClientId = new List<int>();
             ClientId.Add(clientId);
+            Employee = new Employee();
+            TimeEntry = new Time();
+            bill = new Bill();
+            bill.employeeId = Employee.Id;
         }
         public override string ToString()
         {
-            
+            return $"Id:[{Id}]   {ShortName},   {LongName} \r\n{OpenDate} {IsActive} \r\n{Employee}\r\n{bill}\r\n";
+        }
 
-            return $"Id:[{Id}]   {ShortName},   {LongName} \r\n{OpenDate} {IsActive} \r\n";
+        public void newBill(int empId, int projId, int rate, int hours)
+        {
+            bill = new Bill(empId, projId, rate, hours);
         }
 
 
@@ -119,7 +130,6 @@ namespace PracticePanther.MAUI
         {
             return patrons.FirstOrDefault(p => p.Id == id);
         }
-
         
         public void Add(Client? patronToAdd)
         {
@@ -222,6 +232,8 @@ namespace PracticePanther.MAUI
                 }
             }
         }
+
+
         public void Update(Project projectToUpdate)
         {
 
@@ -245,29 +257,97 @@ namespace PracticePanther.MAUI
             return projects.FirstOrDefault(p => p.Id == id);
         }   
     }
-    public class Employee
+
+    public class EmployeeService
     {
-        //singleton design pattern
-        private static Employee _instance;
-        public int Id { get; set; }
-        public decimal Rate { get; set; }
-        public string Name { get; set; }
-        public static Employee Instance
+        //identical to ClientService but employees
+        private static EmployeeService? _instance;
+        private static object _lock = new object();
+        public static EmployeeService Current
         {
             get
             {
-                if (_instance == null)
+                lock (_lock)
                 {
-                    _instance = new Employee();
+                    if (_instance == null)
+                    {
+                        _instance = new EmployeeService();
+                    }
+                    return _instance;
                 }
-                return _instance;
             }
-        } 
-        private Employee(int id = 0, decimal rate = 0, string name = "")
+        }
+        public EmployeeService()
+        {
+            employees = new List<Employee>
+            {
+                new Employee(1, 20, "John Doe"),
+                new Employee(2),
+                new Employee(3),
+                new Employee(4),
+                new Employee(5),
+                new Employee(6)
+            };
+
+        }
+        private List<Employee> employees;
+
+        public List<Employee> GetAll
+        {
+            get { return employees; }
+        }
+
+        public Employee Get(int id)
+        {
+            return employees.FirstOrDefault(p => p.Id == id);
+        }
+
+        public void Add(Employee employeeToAdd)
+        {
+            if (employeeToAdd != null)
+            {
+                employees.Add(employeeToAdd);
+            }
+        }
+        public void Update(Employee employeeToUpdate)
+        {
+
+        }
+        public void Delete(int id)
+        {
+            var employeeToRemove = Get(id);
+            if (employeeToRemove != null)
+            {
+                employees.Remove(employeeToRemove);
+            }
+        }
+        //Search function that searches by name
+        public List<Employee> Search(string Query)
+        {
+            return employees.Where(p => p.Name.ToUpper().Contains(Query.ToUpper())).ToList();
+        }
+
+        public Employee GetById(int id)
+        {
+            return employees.FirstOrDefault(p => p.Id == id);
+        }
+    }   
+    public class Employee
+    {
+        public int Id { get; set; }
+        public decimal Rate { get; set; }
+        public string Name { get; set; }
+        public Employee(int id = 0, decimal rate = 0, string name = "")
         {
             Id = id;
             Rate = rate;
             Name = name;
+        }
+
+        //to string override
+        public override string ToString()
+        {
+            return $"Employee Id:[{Id}]   {Name},   {Rate}";
         }
 
     }
@@ -275,31 +355,50 @@ namespace PracticePanther.MAUI
     //class to represent ime used to work on a project
     public class Time
     {
-        //singleton desgin pattern
-        private static Time _instance;
         public DateTime Date { get; set; }
         public string Narrative { get; set; }
         public decimal Hours { get; set; }
         public int ProjectId { get; set; }
         public int EmployeeId { get; set; }
-        public static Time Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new Time();
-                }
-                return _instance;
-            }
-        }
-        private Time(DateTime date = new DateTime(), string narrative = "", decimal hours = 0, int projectId = 0, int employeeId = 0)
+        public int Rate { get; set; }
+        public Time(DateTime date = new DateTime(), string narrative = "", decimal hours = 0, int projectId = 0, int employeeId = 0)
         {
             Date = date;
             Narrative = narrative;
             Hours = hours;
             ProjectId = projectId;
             EmployeeId = employeeId;
+            Rate = 0;
+        }
+    }
+
+    public class Bill
+    {
+        public int employeeId { get; set; }
+        public int projectId { get; set; }
+        public decimal hours { get; set; }
+        public decimal rate { get; set; }
+        public decimal total { get; set; }
+
+        public DateTime dueDate { get; set; }
+        public Bill(int employeeId = 0, int projectId = 0, decimal hours = 0, decimal rate = 0, DateTime dueDate = default)
+        {
+            this.employeeId = employeeId;
+            this.projectId = projectId;
+            this.hours = hours;
+            this.rate = rate;
+            this.total = hours * rate;
+            this.dueDate = dueDate;
+        }
+        public decimal calculateTotal()
+        {
+            return hours * rate;
+        }
+
+        //tostring
+        public override string ToString()
+        {
+            return $"Hours:[{hours}]   Rate:[{rate}]   Total:[{total}]  Due Date:{dueDate}";
         }
     }
     

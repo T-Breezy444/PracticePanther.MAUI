@@ -4,8 +4,9 @@
              x:Class="PracticePanther.MAUI.Views.ProjectDetailPage"
              Title="Project Detail Page"
              NavigatedTo="OnArriving">
-    <VerticalStackLayout>
-        <Label 
+    <ScrollView>
+        <VerticalStackLayout>
+            <Label
             Text="Name"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
@@ -33,7 +34,26 @@
         <ListView ItemsSource="{Binding Path=AllClients}"
                   SelectedItem="{Binding Path=SelectedClient}"/>
         <Button Text="Add selected client to project" Clicked="AddClientClicked"/>
-        <Button
+        <Label
+            Text="Employee on Project"
+            VerticalOptions="Center"
+            HorizontalOptions="Center" />
+            <ListView ItemsSource="{Binding Path=Employees}"
+                      SelectedItem="{Binding Path=SelectedEmployee}"/>
+            <ListView ItemsSource="{Binding Path=AllEmployees}"
+                  SelectedItem="{Binding Path=SelectedEmployee}"/>
+        <Button Text="Add selected employee to project" Clicked="AddEmployeeClicked"/>
+            <Label
+                Text="Total Hours on Project"
+                VerticalOptions="Center"
+                HorizontalOptions="Center" />
+            <Entry Text="{Binding Path=Hours}"></Entry>
+            <Label
+            Text ="Due Date"
+            VerticalOptions="Center"
+            HorizontalOptions="Center" />
+            <DatePicker Date="{Binding Path=DueDate}"></DatePicker>
+            <Button
             Text="Finish"
             Clicked="Ok_Clicked"
             />
@@ -41,5 +61,6 @@
             Text="Cancel"
             Clicked="Cancel_Clicked"
             />
-    </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
